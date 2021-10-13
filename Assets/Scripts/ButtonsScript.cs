@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ButtonsScript : MonoBehaviour
 {
+    public AudioSource bgm, sfx;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +15,16 @@ public class ButtonsScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(PlayerPrefs.GetString("sound") == "true")
+        {
+            bgm.mute = false;
+            sfx.mute = false;
+        }
+        else
+        {
+            bgm.mute = true;
+            sfx.mute = true;
+        }
     }
 
     public void MainMenu()

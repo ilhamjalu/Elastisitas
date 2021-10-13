@@ -7,9 +7,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public TMP_InputField p1, p2, q1, q2, nKoefisien, jKurva, deltaP, deltaQ;
+    public TMP_Text textP1, textP2, textQ1, textQ2;
     public float numP1, numP2, numQ1, numQ2, totP, totQ;
     float koef;
     public GameObject firstPos, secPos, panel;
+    public AudioSource bgm, sfx;
 
     // Start is called before the first frame update
     void Start()
@@ -20,24 +22,26 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(p1.text != "" && p2.text != "")
-        //    DeltaP();
+        if (PlayerPrefs.GetString("sound") == "true")
+        {
+            bgm.mute = false;
+            sfx.mute = false;
+        }
+        else
+        {
+            bgm.mute = true;
+            sfx.mute = true;
+        }
 
-        //if (q1.text != "" && q2.text != "")
-        //    DeltaQ();
-
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    koef = (totQ / totP) * (numP1 / numQ1);
-        //    Debug.Log(koef);
-        //    nKoefisien.text = koef.ToString();
-        //    JenisKurva();
-        //}
-            
     }
 
     public void Mulai()
     {
+        textP1.SetText(numP1.ToString());
+        textP2.SetText(numP2.ToString());
+        textQ1.SetText(numQ1.ToString());
+        textQ2.SetText(numQ2.ToString());
+
         int i = 0;
 
         if (koef > 1)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class MenuManager : MonoBehaviour
     bool butNext = false, butPrev = false;
     public AnimationsCode itemAnim;
     int i = 0;
+    public bool sound = true;
+    public AudioSource bgm, sfx;
+    public Button on, off;
     
     // Start is called before the first frame update
     void Start()
@@ -39,6 +43,25 @@ public class MenuManager : MonoBehaviour
             anim.SetBool("Prev", true);
             anim.SetBool("Next", false);
         }
+
+        if (sound == false)
+        {
+            off.gameObject.SetActive(true);
+            on.gameObject.SetActive(false);
+            bgm.mute = true;
+            sfx.mute = true;
+            PlayerPrefs.SetString("sound", "false");
+        }
+        else
+        {
+            on.gameObject.SetActive(true);
+            off.gameObject.SetActive(false);
+            bgm.mute = false;
+            sfx.mute = false;
+            PlayerPrefs.SetString("sound", "true");
+        }
+
+        Debug.Log(sound);
 
     }
 
@@ -115,6 +138,18 @@ public class MenuManager : MonoBehaviour
         for(int a = 0; a <= 2; a++)
         {
             NextButton();
+        }
+    }
+
+    public void Sound()
+    {
+        if (sound == true)
+        {
+            sound = false;
+        }
+        else
+        {
+            sound = true;
         }
     }
 
