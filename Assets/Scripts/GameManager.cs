@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     float koef;
     public GameObject firstPos, secPos, panel;
     public AudioSource bgm, sfx;
+    Vector2 posAwal = new Vector2(-6.263889f, -2.638889f);
 
     // Start is called before the first frame update
     void Start()
@@ -33,10 +34,39 @@ public class GameManager : MonoBehaviour
             sfx.mute = true;
         }
 
+        if(p1.text == "" || p2.text == "" || q1.text =="" || q2.text == "" || deltaP.text == "" || deltaQ.text == "")
+        {
+            numP1 = 0;
+            numP2 = 0;
+            numQ1 = 0;
+            numQ2 = 0;
+            totP = 0;
+            totQ = 0;
+
+            firstPos.transform.position = posAwal;
+            secPos.transform.position = posAwal;
+        }
+        else
+        {
+            numP1 = float.Parse(p1.text);
+            numP2 = float.Parse(p2.text);
+            numQ1 = float.Parse(q1.text);
+            numQ2 = float.Parse(q2.text);
+
+            totP = numP2 - numP1;
+            totQ = numQ2 - numQ1;
+
+            koef = (totQ / totP) * (numP1 / numQ1);
+        }
+        
+
     }
 
     public void Mulai()
     {
+        firstPos.transform.position = posAwal;
+        secPos.transform.position = posAwal;
+
         textP1.SetText(numP1.ToString());
         textP2.SetText(numP2.ToString());
         textQ1.SetText(numQ1.ToString());
@@ -86,6 +116,16 @@ public class GameManager : MonoBehaviour
         deltaQ.text = "";
         nKoefisien.text = "";
         jKurva.text = "";
+
+        numP1 = 0;
+        numP2 = 0;
+        numQ1 = 0;
+        numQ2 = 0;
+        totP = 0;
+        totQ = 0;
+
+        firstPos.transform.position = posAwal;
+        secPos.transform.position = posAwal;
     }
 
     public void DeltaP()
